@@ -122,9 +122,10 @@ def draw_landmarks(img, pts, style='fancy', wfp=None, show_flag=False, **kwargs)
     if not type(pts) in [tuple, list]:
         pts = [pts]
     for i in range(len(pts)):
-        if dense_flag:
-            plt.plot(pts[i][0, ::6], pts[i][1, ::6], 'o', markersize=0.4, color='c', alpha=0.7)
-        else:
+        if dense_flag:   #38365个点
+            # plt.plot(pts[i][0, ::6], pts[i][1, ::6], 'o', markersize=0.4, color='c', alpha=0.7)
+            plt.plot(pts[i][0, ::6], pts[i][1, ::6], 'o', markersize=2, color='w', alpha=0.7)
+        else:    #68个点
             alpha = 0.8
             markersize = 4
             lw = 1.5
@@ -156,7 +157,7 @@ def draw_landmarks(img, pts, style='fancy', wfp=None, show_flag=False, **kwargs)
         plt.show()
 
 
-def cv_draw_landmark(img_ori, pts, box=None, color=GREEN, size=1):
+def cv_draw_landmark(img_ori, pts, box=None, color=BLUE, size=5):
     img = img_ori.copy()
     n = pts.shape[1]
     if n <= 106:
@@ -173,10 +174,14 @@ def cv_draw_landmark(img_ori, pts, box=None, color=GREEN, size=1):
         right_top = (right, top)
         right_bottom = (right, bottom)
         left_bottom = (left, bottom)
-        cv2.line(img, left_top, right_top, BLUE, 1, cv2.LINE_AA)
-        cv2.line(img, right_top, right_bottom, BLUE, 1, cv2.LINE_AA)
-        cv2.line(img, right_bottom, left_bottom, BLUE, 1, cv2.LINE_AA)
-        cv2.line(img, left_bottom, left_top, BLUE, 1, cv2.LINE_AA)
+        # cv2.line(img, left_top, right_top, BLUE, 1, cv2.LINE_AA)
+        # cv2.line(img, right_top, right_bottom, BLUE, 1, cv2.LINE_AA)
+        # cv2.line(img, right_bottom, left_bottom, BLUE, 1, cv2.LINE_AA)
+        # cv2.line(img, left_bottom, left_top, BLUE, 1, cv2.LINE_AA)
+        cv2.line(img, left_top, right_top, BLUE, 5, cv2.LINE_AA)
+        cv2.line(img, right_top, right_bottom, BLUE, 5, cv2.LINE_AA)
+        cv2.line(img, right_bottom, left_bottom, BLUE, 5, cv2.LINE_AA)
+        cv2.line(img, left_bottom, left_top, BLUE, 5, cv2.LINE_AA)
 
     return img
     
