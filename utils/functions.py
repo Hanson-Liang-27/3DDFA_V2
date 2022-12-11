@@ -193,3 +193,20 @@ def cv_draw_landmark(img_ori, pts, box=None, color=BLUE, size=5):
     # !ffmpeg -i $inpath -vf "transpose=3" $outpath
     # !test -f $outpath && echo "rotate success" || echo "rotate fail"
 
+def video2sequence(video_path, sample_step=10):
+    videofolder = os.path.splitext(video_path)[0]
+    os.makedirs(videofolder, exist_ok=True)
+    video_name = os.path.splitext(os.path.split(video_path)[-1])[0]
+    vidcap = cv2.VideoCapture(video_path)
+    success,image = vidcap.read()
+    count = 0
+    imagepath_list = []
+    while success:
+        # if count%sample_step == 0:
+        imagepath = os.path.join(videofolder, f'{video_name}_frame{count:04d}.jpg')
+        cv2.imwrite(imagepath, image)     # save frame as JPEG file
+        success,image = vidcap.read()
+        count += 1
+        imagepath_list.append(imagepath)
+    print('video frames are stored in {}'.format(videofolder))
+    return imagepath_list
