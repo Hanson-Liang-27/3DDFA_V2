@@ -185,10 +185,10 @@ def cv_draw_landmark(img_ori, pts, box=None, color=BLUE, size=5):
 
     return img
 
-    def rotate90_to_mp4(inpath,outpath):
+def rotate90_to_mp4(inpath,outpath):
         # !cp /content/drive/MyDrive/019-white-17/four_video/face121.mov /content/3DDFA_V2/TestSamples
         # 视频逆时针旋转90度
         # !ffmpeg -i /content/drive/MyDrive/019-white-17/four_video/face121.mov -vf "transpose=3" /content/3DDFA_V2/TestSamples/face019_3.mp4
         !ffmpeg -i $inpath -vf "transpose=3" $outpath
         !test -f $outpath && echo "rotate success" || echo "rotate fail"
-    return
+return
