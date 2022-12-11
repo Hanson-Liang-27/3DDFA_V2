@@ -159,6 +159,8 @@ def draw_landmarks(img, pts, style='fancy', wfp=None, show_flag=False, **kwargs)
         plt.show()
 
 
+
+
 def cv_draw_landmark(img_ori, pts, box=None, color=BLUE, size=5):
     img = img_ori.copy()
     n = pts.shape[1]
@@ -211,3 +213,13 @@ def video2sequence(video_path, sample_step=10):
         imagepath_list.append(imagepath)
     print('video frames are stored in {}'.format(videofolder))
     return imagepath_list
+
+def plt_face_box(img_fp,boxes):
+    import matplotlib.pyplot as plt
+    img = plt.imread(img_fp)
+    plt.imshow(img)
+    plt.plot([boxes[0][0], boxes[0][2]],[boxes[0][3], boxes[0][3]], color='r')
+    plt.plot([boxes[0][2], boxes[0][2]],[boxes[0][3], boxes[0][1]], color='r')
+    plt.plot([boxes[0][0], boxes[0][2]],[boxes[0][1], boxes[0][1]], color='r')
+    plt.plot([boxes[0][0], boxes[0][0]],[boxes[0][3], boxes[0][1]],  color='r')
+    plt.show() 
