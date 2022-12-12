@@ -223,3 +223,38 @@ def plt_face_box(img_fp,boxes):
     plt.plot([boxes[0][0], boxes[0][2]],[boxes[0][1], boxes[0][1]], color='r')
     plt.plot([boxes[0][0], boxes[0][0]],[boxes[0][3], boxes[0][1]],  color='r')
     plt.show() 
+
+def fit_single_wrinkle(img_fp,boxes,polynum,out_path):
+    # 检测皱纹红点label
+    # Open the image
+    im = cv2.imread(img_fp)
+    red_coords = []
+    # Loop through all pixels in the image
+    for x in range(len(im[1])):
+        for y in range(len(im[0])):
+            if im[y, x][2] >= 230 and im[y,x][1] <=10:
+                red_coord = []
+                red_coord.append(x - boxes[0][0])
+                red_coord.append(y - boxes[0][1])
+                red_coords.append(red_coord)
+    print('red_coords locations:',red_coords)
+    print('number of red_coords:',len(red_coords))
+
+    # 读取图片并转换为数组
+    img_array = np.array(img)
+    # 提取图片中的曲线点
+    curve_points = red_coords
+    x = [point[0] for point in curve_points]
+    y = [point[1] for point in curve_points]
+    # 拟合曲线
+    fit = np.polyfit(x, y, polynum)
+    # 绘制拟合后的曲线
+    curve = np.poly1d(fit)
+
+    for i in range(int(min(x)),int(max(x))):
+        y = curve(i)
+        img_array[int(y + boxes[0][1]), int(i + boxes[0][0])] = (255, 0, 0)
+
+    # 保存图片并输出结果
+    cv2.imwrite(out_path, img_array)
+    return fit
