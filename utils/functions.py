@@ -241,7 +241,7 @@ def fit_single_wrinkle(img_fp,boxes,polynum,out_path):
     print('number of red_coords:',len(red_coords))
 
     # 读取图片并转换为数组
-    img_array = np.array(img)
+    img_array = np.array(im)
     # 提取图片中的曲线点
     curve_points = red_coords
     x = [point[0] for point in curve_points]
